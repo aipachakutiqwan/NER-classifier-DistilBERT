@@ -1,2 +1,2 @@
 # NER-classifier-DistilBERT
-Name Entity Recognition Classifier with DistilBERT
+Name Entity Classifier with DistilBERT
