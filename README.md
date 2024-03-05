@@ -2,6 +2,15 @@
 
 This repository implement a Name Entity Classifier using a DistilBERT pretrained model from Hugging Face.
 
+Finetunning for the entire dataset will be found in this link (https://drive.google.com/file/d/1DbbvAdZ5lYEXfIvhMfr91SA5LHWj-yxq/view?usp=share_link). Feel free to clone  in Colab and and reproduce the results using T4 GPU.
+
+Locally reproducible code version use small sample of the entire dataset.
+
+```console
+src/notebooks/Locally-NER-Classifier-DistilBERT.ipynb
+```
+
+
 The following process has been implemented for create the NER model.
 
 1. Data Analisis Entities
@@ -120,6 +129,9 @@ Training finetunning metrics for every entity.
 }
 ```
 
+Model Finetunned will be downloaded from https://huggingface.co/florenciopaucar/ner-classifier-distil-bert
+
+
 ## 4. Evaluation of the model
 
 The evaluation of the model in the test set produced good performance.
@@ -197,7 +209,7 @@ torch.onnx.export(hf_finetunned_model,                                         #
 
 Both models HF Finetunned model and ONNX model has the same predictions (verified with a sample sanity check logits comparison). Additionaly the metrics evaluation on the test set (precision, recall, f1, accurary) for both models are the same. 
 
-The optimized ONNX model is faster than the HF finetunned model for the predictions, there are some preprocessing of the input (padding to 512 tensor size) and postprocessing of the output which take some additional time. 
+There are some preprocessing of the input (padding to 512 tensor size) and postprocessing of the output which take some additional time for onnx model.
 
 
 
