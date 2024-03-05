@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[project]
+name = "ner-classifier-distilbert"
+version = "0.0.1"
+requires-python = ">=3.10.4"
+dependencies = [
+        "pandas==2.1.3",
+        "ipykernel==6.27.1",
+        "matplotlib==3.8.2",
+        "scikit-learn==1.3.2",
+        "datasets",
+        "transformers",
+        "tensorflow",
+        "torch",
+        "seqeval",
+        "evaluate",
+        "accelerate",
+        "optimum[exporters]",
+        "onnxruntime"
+]
+
+[project.optional-dependencies]
+tests = [
+    "pytest==7.1.2",
+    "pytest-cov==3.0.0",
+]
