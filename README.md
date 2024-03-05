@@ -2,14 +2,16 @@
 
 This repository implement a Name Entity Classifier using a DistilBERT pretrained model from Hugging Face.
 
-Finetunning for the entire dataset will be found in this link (https://drive.google.com/file/d/1DbbvAdZ5lYEXfIvhMfr91SA5LHWj-yxq/view?usp=share_link). Feel free to clone  in Colab and and reproduce the results using T4 GPU.
+The finetunning results will be reproduced in Google Colab using T4 GPU, feel free to clone in Colab.
+
+<a href="https://drive.google.com/file/d/1DbbvAdZ5lYEXfIvhMfr91SA5LHWj-yxq/view?usp=share_link" target="_blank">Colab Notebook</a>
+
 
 Locally reproducible code version use small sample of the entire dataset.
 
 ```console
 src/notebooks/Locally-NER-Classifier-DistilBERT.ipynb
 ```
-
 
 The following process has been implemented for create the NER model.
 
