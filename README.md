@@ -159,7 +159,17 @@ Metrics in the test set for every entity.
 
 ```
 
-The confusion matrix obtained is presented in the table.
+The confusion matrix obtained for the 4 entities are presented. Table rows represent predicted values 
+and columns real label values.
+
+
+O                                                :  0
+B-DebtInstrumentInterestRateStatedPercentage     : 41
+B-LineOfCreditFacilityMaximumBorrowingCapacity   : 87
+B-DebtInstrumentBasisSpreadOnVariableRate1       : 34
+B-DebtInstrumentFaceAmount                       : 37
+
+
 
 ![Confusion Matrix](./docs/confusion-matrix.png?  "Title")
 
