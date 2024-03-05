@@ -22,7 +22,8 @@ dependencies = [
         "seqeval",
         "evaluate",
         "accelerate",
-        "optimum[exporters]"
+        "optimum[exporters]",
+        "onnxruntime"
 ]
 
 [project.optional-dependencies]
