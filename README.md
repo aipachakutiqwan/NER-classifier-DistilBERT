@@ -72,7 +72,7 @@ The model finetunning run in Google Colab using a single T4 GPU. The steps follo
     - Select proper hyperparameters 
     - Set data collator that will dynamically pad the inputs received, as well as the labels
     - Finetune the model with transformer Trainer class
-    - Verify the metrics output in the validation test and repeat the process until find a good hyperparameters
+    - Verify the metrics output in the validation test and repeat the process until find good hyperparameters
     - Save the model and push to HuggingFace Hub
 
 Final hyperparameters setting.
@@ -163,11 +163,11 @@ The confusion matrix obtained for the 4 entities are presented. Table rows repre
 and columns real label values.
 
 
-O                                                :  0
-B-DebtInstrumentInterestRateStatedPercentage     : 41
-B-LineOfCreditFacilityMaximumBorrowingCapacity   : 87
-B-DebtInstrumentBasisSpreadOnVariableRate1       : 34
-B-DebtInstrumentFaceAmount                       : 37
+    O                                                :  0
+    B-DebtInstrumentInterestRateStatedPercentage     : 41
+    B-LineOfCreditFacilityMaximumBorrowingCapacity   : 87
+    B-DebtInstrumentBasisSpreadOnVariableRate1       : 34
+    B-DebtInstrumentFaceAmount                       : 37
 
 
 
