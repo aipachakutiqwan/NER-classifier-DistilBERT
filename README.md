@@ -65,7 +65,8 @@ DatasetDict({
 
 ## 3. Finetunning distilbert-base-cased model 
 
-The steps followed for finetune the distilbert-base-cased model are the following.
+The model finetunning run in Google Colab using a single T4 GPU. The steps followed for finetune the distilbert-base-cased model are the following.
+
     - Tokenize the samples using sentence piece
     - Pad ner_tags according to the tokenized word
     - Select proper hyperparameters 
@@ -74,11 +75,49 @@ The steps followed for finetune the distilbert-base-cased model are the followin
     - Verify the metrics output in the validation test and repeat the process until find a good hyperparameters
     - Save the model and push to HuggingFace Hub
 
+Final hyperparameters setting.
+
 ```python
 
-Metrics obtained during finetunning model.
-#TODO
+args = TrainingArguments(finetunned_ner_classifier_distil_bert,
+                         evaluation_strategy = "epoch",
+                         save_strategy = "epoch",
+                         learning_rate = 2e-5,
+                         num_train_epochs = 10,
+                         weight_decay = 0.01,
+                         logging_steps = 50, # default 500,
+                        )
 
+```
+
+The overall metrics obtained during finetunning. 
+
+![Confusion Matrix](./docs/training-metrics.png?  "Title")
+
+Finetunning metrics for every entity.
+
+```python
+{'DebtInstrumentBasisSpreadOnVariableRate1':  {'precision': 0.9484620085557139, 
+                                               'recall': 0.9677821658698815, 
+                                               'f1': 0.9580246913580246, 
+                                               'number': 4811 }, 
+
+ 'DebtInstrumentFaceAmount':                 {'precision': 0.861864406779661, 
+                                               'recall': 0.8905429071803853, 
+                                               'f1': 0.875968992248062, 
+                                               'number': 3426 }, 
+
+'DebtInstrumentInterestRateStatedPercentage': {'precision': 0.9589780496581504, 
+                                               'recall': 0.9615731553310481, 
+                                               'f1': 0.9602738492027744, 
+                                               'number': 5543 }, 
+
+'LineOfCreditFacilityMaximumBorrowingCapacity': {'precision': 0.9013248058474189, 
+                                                 'recall': 0.9153328694038506, 
+                                                 'f1': 0.9082748302451376, 
+                                                 'number': 4311 }
+
+}
 ```
 
 ## 4. Evaluation of the model
@@ -87,11 +126,34 @@ The evaluation of the model in the test set produced good performance.
 
 ```python
 
-#TODO: replace
-{'precision': 0.34146341463414637,
- 'recall': 0.34146341463414637,
- 'f1': 0.34146341463414637,
- 'accuracy': 0.9084967320261438}
+{'precision': 0.9087918865209347,
+ 'recall': 0.9172141918528253,
+ 'f1': 0.9129836155858461,
+ 'accuracy': 0.9912687548406852}
+
+```
+
+```python
+
+{
+
+'DebtInstrumentBasisSpreadOnVariableRate1':    {'precision': 0.9417948717948718, 
+                                                 'recall': 0.9449446874196038, 
+                                                 'f1': 0.9433671503788366, 
+                                                 'number': 3887 }, 
+'DebtInstrumentFaceAmount':                    {'precision': 0.8254875588433087, 
+                                                 'recall': 0.8480138169257341, 
+                                                 'f1': 0.8365990799113989, 
+                                                 'number': 2895 }, 
+'DebtInstrumentInterestRateStatedPercentage':  {'precision': 0.9369306236860546, 
+                                                 'recall': 0.9572792362768496, 
+                                                 'f1': 0.9469956321567701, 
+                                                 'number': 4190 }, 
+'LineOfCreditFacilityMaximumBorrowingCapacity': {'precision': 0.9083769633507853, 
+                                                 'recall': 0.8956122741611701, 
+                                                 'f1': 0.9019494584837545, 
+                                                 'number': 3487 }
+}
 
 ```
 
@@ -100,7 +162,7 @@ The confusion matrix obtained is presented in the table.
 ![Confusion Matrix](./docs/confusion-matrix.png?  "Title")
 
 
-## 5. Export to ONNX for interoperability
+## 5. Export to ONNX for interoperability
 
 The Finetunned HuggingFace model was exported to ONNX for interoperability and accelerated inference. Below the parameters used, it is important to consider the sizes of the input.
 
@@ -121,23 +183,16 @@ torch.onnx.export(hf_finetunned_model,                                         #
 
 ## 6. Comparison of HF Finetunned model and ONNX model
 
-It was verified that both models HF Finetunned model and ONNX model has the same predictions (verified with a sample sanity check logits comparison). Additionaly the metrics evaluation on the test set (precision, recall, f1, accurary) are the same. 
+Both models HF Finetunned model and ONNX model has the same predictions (verified with a sample sanity check logits comparison). Additionaly the metrics evaluation on the test set (precision, recall, f1, accurary) for both models are the same. 
 
 ```python
 ## TODO: metrics
 
 ```
 
-In relation to the model inference performance, it was verified that the ONNX optimized model is faster than the Finetunned HF model.
+The optimized ONNX model is faster than the HF finetunned model for the predictions, there are some preprocessing of the input (padding to 512 tensor size) and postprocessing of the output which take some additional time. 
 
-
-
-
-
-
-
-
-
+ the prediction of the test set (108378 samples) took less time using the ONNX model. 
 
 
 
