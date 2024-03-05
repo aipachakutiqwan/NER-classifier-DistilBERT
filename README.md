@@ -16,9 +16,9 @@ The following process has been implemented for create the NER model.
 
 The finer-139 dataset contains 3 sets.
 
-train: 900384 samples
-test: 108378 samples
-validation: 112494 samples
+    train: 900384 samples
+    test: 108378 samples
+    validation: 112494 samples
 
 The most repeated entities for the entire dataset are 0, 41, 87, 34, 37.
 
@@ -37,7 +37,7 @@ The most repeated entities for the entire dataset are 0, 41, 87, 34, 37.
     41 : 18448 repetitions
     87 : 14730 repetitions
     34 : 14469 repetitions
-    37 :13158 repetitions
+    37 : 13158 repetitions
 
 ![Entities distribution](./docs/entities-distribution.png?  "Title")
 
@@ -94,7 +94,7 @@ The overall metrics obtained during finetunning.
 
 ![Confusion Matrix](./docs/training-metrics.png?  "Title")
 
-Finetunning metrics for every entity.
+Training finetunning metrics for every entity.
 
 ```python
 {'DebtInstrumentBasisSpreadOnVariableRate1':  {'precision': 0.9484620085557139, 
@@ -120,18 +120,20 @@ Finetunning metrics for every entity.
 }
 ```
 
-## 4. Evaluation of the model
+## 4. Evaluation of the model
 
 The evaluation of the model in the test set produced good performance.
 
 ```python
 
-{'precision': 0.9087918865209347,
- 'recall': 0.9172141918528253,
- 'f1': 0.9129836155858461,
- 'accuracy': 0.9912687548406852}
+{ 'precision': 0.9087918865209347,
+  'recall':    0.9172141918528253,
+  'f1':        0.9129836155858461,
+  'accuracy':  0.9912687548406852
+ }
 
 ```
+Metrics in the test set for every entity.
 
 ```python
 
@@ -185,14 +187,8 @@ torch.onnx.export(hf_finetunned_model,                                         #
 
 Both models HF Finetunned model and ONNX model has the same predictions (verified with a sample sanity check logits comparison). Additionaly the metrics evaluation on the test set (precision, recall, f1, accurary) for both models are the same. 
 
-```python
-## TODO: metrics
-
-```
-
 The optimized ONNX model is faster than the HF finetunned model for the predictions, there are some preprocessing of the input (padding to 512 tensor size) and postprocessing of the output which take some additional time. 
 
- the prediction of the test set (108378 samples) took less time using the ONNX model. 
 
 
 
